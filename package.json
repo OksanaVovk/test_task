@@ -9,13 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.3.1"
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.7.1",
+    "@mui/icons-material": "^5.0.0",
+    "@mui/joy": "^5.0.0-beta.52",
+    "@mui/material": "^5.0.0",
+    "@reduxjs/toolkit": "^2.7.0",
+    "next": "14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-redux": "^9.2.0",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3",
     "eslint": "^9",
-    "eslint-config-next": "15.3.1",
-    "@eslint/eslintrc": "^3"
+    "eslint-config-next": "15.3.1"
   }
 }
