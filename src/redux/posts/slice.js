@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPosts, createPost, deletePost } from "./operations";
+import { getPosts, createPost, deletePost, getComments } from "./operations";
 
 const initialState = {
   data: [],
+  comments: [],
   isLoading: false,
   error: false,
 };
@@ -49,6 +50,19 @@ const postsSlice = createSlice({
         state.error = false;
       })
       .addCase(deletePost.rejected, (state) => {
+        state.isLoading = false;
+        state.error = true;
+      })
+      .addCase(getComments.pending, (state) => {
+        state.isLoading = true;
+        state.error = false;
+      })
+      .addCase(getComments.fulfilled, (state, action) => {
+        state.comments = action.payload;
+        state.isLoading = false;
+        state.error = false;
+      })
+      .addCase(getComments.rejected, (state) => {
         state.isLoading = false;
         state.error = true;
       });

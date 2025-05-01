@@ -6,11 +6,10 @@ import {
   Avatar,
   IconButton,
   Typography,
-  Button,
   Skeleton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ArticleIcon from "@mui/icons-material/Article";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const CardItem = ({ post, onDelete, onOpen, isLoading }) => {
   if (isLoading) {
@@ -34,18 +33,14 @@ const CardItem = ({ post, onDelete, onOpen, isLoading }) => {
   }
 
   return (
-    <Card sx={{ maxWidth: 400, margin: 2 }}>
+    <Card>
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: "#2196f3" }}>
-            {post.title.charAt(0).toUpperCase()}
-          </Avatar>
-        }
+        avatar={<Avatar>{post.title.charAt(0).toUpperCase()}</Avatar>}
         title={post.title}
-        subheader={`ID: ${post.id}`}
+        subheader={`User ${post.userId}`}
         action={
           <IconButton onClick={() => onDelete(post.id)} aria-label="delete">
-            <DeleteIcon />
+            <DeleteIcon sx={{ color: "#e03636" }} />
           </IconButton>
         }
       />
@@ -55,13 +50,16 @@ const CardItem = ({ post, onDelete, onOpen, isLoading }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button
-          size="small"
-          endIcon={<ArticleIcon />}
+        <IconButton
           onClick={() => onOpen(post.id)}
+          sx={{
+            "&:hover": {
+              color: "#2196f3",
+            },
+          }}
         >
-          Перейти до поста
-        </Button>
+          <ArrowForwardIcon />
+        </IconButton>
       </CardActions>
     </Card>
   );

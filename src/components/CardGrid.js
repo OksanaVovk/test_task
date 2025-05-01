@@ -1,27 +1,32 @@
 "use client";
 import { Grid } from "@mui/material";
 import CardItem from "./CardItem";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postsSelectors } from "@/redux/posts/postsSelectors";
-import { deletePost } from "@/redux/posts/operations";
+import { deletePost, getComments } from "@/redux/posts/operations";
+import { useRouter } from "next/navigation";
 
-const CardGrid = () => {
+const CardGrid = ({ posts }) => {
   const isLoading = useSelector(postsSelectors.selectPostsIsLoading);
-  const posts = useSelector(postsSelectors.selectPosts);
+
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const onDelete = (id) => {
     dispatch(deletePost(id));
   };
 
-  const onOpen = () => {
-    console.log("відкрито");
+  const onOpen = (id) => {
+    dispatch(getComments(id));
+    router.push(`/posts/${id}`);
   };
 
   return (
-    <Grid container spacing={3}>
-      {posts.map((post) => (
-        <Grid item xs={12} sm={6} md={4} key={post.id}>
+    <Grid container spacing={2}>
+      {posts.map((post, index) => (
+        // Через особливості фейкового API, яке може присвоювати однакові id новоствореним постам,
+        // тимчасово використовується індекс масиву як ключ. У реальному проєкті слід використовувати унікальний id.
+        <Grid item xs={12} sm={6} md={4} key={index}>
           <CardItem
             post={post}
             onDelete={onDelete}

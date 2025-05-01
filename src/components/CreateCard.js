@@ -1,6 +1,13 @@
 "use client";
-import { Box, Stack, Button, TextField, InputAdornment } from "@mui/material";
-import ButtonStepper from "./Stepper";
+import {
+  Box,
+  Stack,
+  Button,
+  TextField,
+  InputAdornment,
+  Snackbar,
+} from "@mui/material";
+import ButtonStepper from "./ButtonStepper";
 import PreviewDialog from "./PreviewDialog";
 import { useState } from "react";
 import SaveIcon from "@mui/icons-material/Save";
@@ -10,9 +17,10 @@ import { useDispatch } from "react-redux";
 import { createPost } from "@/redux/posts/operations";
 
 const CreateCard = () => {
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
   const [value, setValue] = useState({ title: "", text: "" });
   const [isOpenPreview, setIsOpenPreview] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -25,7 +33,7 @@ const CreateCard = () => {
   };
 
   const onBtnNextClick = () => {
-    if (activeStep === 2) {
+    if (activeStep === 1) {
       setActiveStep((prev) => prev + 1);
       setIsOpenPreview(true);
     } else {
@@ -34,20 +42,24 @@ const CreateCard = () => {
   };
 
   const onBtnSaveClick = () => {
-    console.log(value);
-    dispatch(
-      createPost({
-        title: value.title,
-        body: value.text,
-        userId: 1,
-      })
-    );
-    setValue({ title: "", text: "" });
-    setActiveStep(1);
+    try {
+      dispatch(
+        createPost({
+          title: value.title,
+          body: value.text,
+          userId: 1,
+        })
+      );
+      setValue({ title: "", text: "" });
+      setActiveStep(0);
+      setOpen(true);
+    } catch (error) {
+      console.error("Помилка збереження поста:", error);
+    }
   };
 
   const onEdit = () => {
-    setActiveStep(1);
+    setActiveStep(0);
     setIsOpenPreview(false);
   };
 
@@ -62,7 +74,7 @@ const CreateCard = () => {
         }}
       >
         <ButtonStepper activeStep={activeStep} />
-        {activeStep == 1 && (
+        {activeStep == 0 && (
           <TextField
             label="Заголовок"
             name="title"
@@ -83,7 +95,7 @@ const CreateCard = () => {
             sx={{ marginTop: "35px" }}
           />
         )}
-        {activeStep == 2 && (
+        {activeStep == 1 && (
           <TextField
             label="Тіло"
             variant="outlined"
@@ -114,7 +126,7 @@ const CreateCard = () => {
         >
           <Button
             variant="plain"
-            disabled={activeStep === 1}
+            disabled={activeStep === 0}
             sx={{ color: "#2196f3" }}
             size="large"
             onClick={() => setActiveStep((prev) => prev - 1)}
@@ -132,9 +144,9 @@ const CreateCard = () => {
             }
             sx={{ backgroundColor: "#2196f3" }}
             size="large"
-            onClick={activeStep <= 2 ? onBtnNextClick : onBtnSaveClick}
+            onClick={activeStep <= 1 ? onBtnNextClick : onBtnSaveClick}
           >
-            {activeStep <= 2 ? `Далі` : `Зберегти`}
+            {activeStep <= 1 ? `Далі` : `Зберегти`}
           </Button>
         </Stack>
       </Box>
@@ -143,6 +155,12 @@ const CreateCard = () => {
         isOpenPreview={isOpenPreview}
         onEdit={onEdit}
         onBtnClick={() => setIsOpenPreview(false)}
+      />
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={() => setOpen(false)}
+        message="Пост успішно створено!"
       />
     </>
   );

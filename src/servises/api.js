@@ -23,3 +23,10 @@ export const deletePostApi = async (id) => {
   if (!res.ok) throw new Error("Не вдалося видалити пост");
   return id;
 };
+
+export const commentsPostApi = async (id) => {
+  const res = await fetch(`${url}/posts/${id}/comments`);
+  if (!res.ok) throw new Error("Не вдалося отримати коментарі");
+  const data = await res.json();
+  return data;
+};
