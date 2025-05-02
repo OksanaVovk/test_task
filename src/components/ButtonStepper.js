@@ -21,7 +21,8 @@ const ButtonStepper = ({ activeStep }) => {
         <Step key={step}>
           <StepLabel
             sx={{
-              color: activeStep <= index ? "#2196f3" : "#B0BEC5",
+              color:
+                activeStep <= index ? "theme.palette.primary.main" : "#B0BEC5",
               fontWeight: activeStep === index ? "bold" : "normal",
               justifyContent: "center",
             }}

@@ -1,20 +1,24 @@
 "use client";
 
 import { Box, Button, Typography, Stack } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 const Hero = () => {
   const router = useRouter();
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === "dark";
 
   return (
     <Box
       sx={{
         borderRadius: "10px",
         padding: "40px 20px",
-        background:
-          "linear-gradient(315deg, rgba(252, 227, 238, 1) 0%, rgba(197, 232, 252, 1) 100%)",
+        background: isDarkMode
+          ? "linear-gradient(315deg, rgb(47, 25, 136) 0%, rgba(44, 39, 39, 0.9) 100%)"
+          : "linear-gradient(315deg, rgba(252, 227, 238, 1) 0%, rgba(197, 232, 252, 1) 100%)",
       }}
     >
       <Typography variant="h2" component="h1" gutterBottom textAlign="center">
@@ -33,7 +37,7 @@ const Hero = () => {
         <Button
           variant="contained"
           startIcon={<FormatListBulletedIcon />}
-          sx={{ backgroundColor: "#2196f3" }}
+          sx={(theme) => ({ backgroundColor: theme.palette.primary.main })}
           size="large"
           onClick={() => router.push("/posts")}
         >
@@ -42,7 +46,7 @@ const Hero = () => {
         <Button
           variant="outlined"
           startIcon={<AddCircleIcon />}
-          sx={{ color: "#2196f3" }}
+          sx={(theme) => ({ color: theme.palette.primary.main })}
           size="large"
           onClick={() => router.push("/posts/create")}
         >

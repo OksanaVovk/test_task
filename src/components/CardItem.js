@@ -40,7 +40,11 @@ const CardItem = ({ post, onDelete, onOpen, isLoading }) => {
         subheader={`User ${post.userId}`}
         action={
           <IconButton onClick={() => onDelete(post.id)} aria-label="delete">
-            <DeleteIcon sx={{ color: "#e03636" }} />
+            <DeleteIcon
+              sx={(theme) => ({
+                color: theme.palette.red.main,
+              })}
+            />
           </IconButton>
         }
       />
@@ -52,11 +56,11 @@ const CardItem = ({ post, onDelete, onOpen, isLoading }) => {
       <CardActions>
         <IconButton
           onClick={() => onOpen(post.id)}
-          sx={{
+          sx={(theme) => ({
             "&:hover": {
-              color: "#2196f3",
+              color: theme.palette.primary.main,
             },
-          }}
+          })}
         >
           <ArrowForwardIcon />
         </IconButton>

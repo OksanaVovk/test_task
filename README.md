@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DOiT MVP
 
-## Getting Started
+Проєкт MVP освітньої платформи з можливістю перегляду та створення постів.
 
-First, run the development server:
+## 🚀 Швидкий старт
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Клонуй репозиторій:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+2. Встанови залежності:
+   npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Запусти локально:
+   npm run dev
 
-## Learn More
+# 📁 Структура папок
 
-To learn more about Next.js, take a look at the following resources:
+src/
+├── app/ # App Router або Layout + сторінки (Nextjs)
+├── components/ # UI-компоненти
+├── redux/ # Redux store і логіка
+├── services/ # API-запити
+├── theme/ # MUI тема
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# ✅ Рекомендації для покращення
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🧪 Юніт‑тести
 
-## Deploy on Vercel
+Використовуй Jest + React Testing Library
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Приклади, що варто протестувати:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Тестування компонентів (чи рендериться компонент із правильними текстами та кнопками,чи коректно змінюється активний крок при кліках на "Далі" і "Назад, чи коректно змінюються стани полів вводу при введенні тексту, клікабельність кнопок).
+
+2. Тестування redux-логіки (чи правильно оновлюється стан після отримання даних, чи викликається action для отримання даних/створення або видалення поста).
+
+3. Тестування сервісів (чи коректно працюють API запити).
+
+4. Тестування адаптивності (чи правильно змінюється відображення компонентів на різних розмірах екрану).
+
+5. Тестування теми- темна/світла (чи коректно змінюється тема при перемиканні, чи змінюється фон і колір тексту в залежності від теми, чи зберігається вибір теми в localStorage).
+
+6. Тестування маршрутизації (чи працюють всі маршрути та чи правильно рендеряться компоненти при переході за адресами).
+
+📱 Адаптивність / мобільна версія
+
+Для покращення доступності та користувацького досвіду додаток потребує адаптації під мобільні пристрої. Рекомендується:
+
+1. Використовувати адаптивну верстку: застосовувати media queries або responsive-компоненти з MUI.
+
+2. Оптимізувати UI для малих екранів: корегувати відступи, розміри шрифтів, кнопок та блоків.
+
+3. Тестувати на типових мобільних розмірах: 320px, 375px, 425px та вище.
+
+4. Забезпечити зручну навігацію однією рукою: ключові елементи, як-от кнопки “Назад” і “Далі”, мають бути легкодоступними.
+
+5. Приховувати або стискати другорядний контент: уникати перевантаження інтерфейсу на малих екранах.
+
+🛠️ Покращення UX
+
+1. Додати обробку помилок.
+
+2. Виводити повідомлення про помилки користувачу (наприклад, за допомогою Snackbar, Alert, Dialog).
+
+3. Валідувати форму до надсилання (непорожні поля, мінімальна кількість символів тощо).
+
+4. Пояснювати причину відмови (наприклад: "Не вдалося створити пост. Перевірте з’єднання з інтернетом").
+
+## 📚 Технології
+
+- **React / Next.js** — для побудови сучасного інтерфейсу користувача та серверного рендерингу.
+- **Redux Toolkit** — для ефективного керування станом.
+- **Material UI (MUI)** — для використання готових UI-компонентів та стилізації.
+- **Fake API / JSONPlaceholder** — для емуляції бекенду на етапі розробки.

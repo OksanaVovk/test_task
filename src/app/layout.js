@@ -3,41 +3,35 @@ import "./globals.css";
 import { Providers } from "@/redux/posts/Providers";
 import Header from "../components/Header";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
+import { getTheme } from "@/theme/theme";
 
 export default function RootLayout({ children }) {
   const [mode, setMode] = useState("light");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedMode = localStorage.getItem("themeMode");
-      if (savedMode) {
-        setMode(savedMode); // Якщо в localStorage є збережений режим, встановлюємо його
-      }
+    const savedMode = localStorage.getItem("themeMode");
+    if (savedMode) {
+      setMode(savedMode);
     }
   }, []);
 
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      (mode === "light" || mode === "dark")
-    ) {
-      localStorage.setItem("themeMode", mode); // Зберігаємо обраний режим у localStorage
+    localStorage.setItem("themeMode", mode);
+  }, [mode]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (mode === "dark") {
+      root.style.setProperty("--background", "#0a0a0a");
+      root.style.setProperty("--foreground", "#ededed");
+    } else {
+      root.style.setProperty("--background", "#ffffff");
+      root.style.setProperty("--foreground", "#171717");
     }
   }, [mode]);
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-          primary: {
-            main: "#2196f3",
-          },
-        },
-      }),
-    [mode]
-  );
+  const theme = getTheme(mode);
 
   return (
     <html lang="en">

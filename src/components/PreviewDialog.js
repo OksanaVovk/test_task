@@ -15,12 +15,16 @@ const PreviewDialog = ({ isOpenPreview, data, onEdit, onBtnClick }) => (
       <Typography variant="body1">{data.text}</Typography>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onEdit} sx={{ color: "#2196f3" }} variant="plain">
+      <Button
+        onClick={onEdit}
+        sx={(theme) => ({ color: theme.palette.primary.main })}
+        variant="plain"
+      >
         Редагувати
       </Button>
       <Button
         onClick={onBtnClick}
-        sx={{ backgroundColor: "#2196f3" }}
+        sx={(theme) => ({ backgroundColor: theme.palette.primary.main })}
         variant="contained"
       >
         Підтвердити

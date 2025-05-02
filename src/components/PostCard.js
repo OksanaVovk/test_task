@@ -36,12 +36,12 @@ const PostCard = ({ post, onDelete, onOpen, isLoading }) => {
               size="small"
               startIcon={<DeleteIcon />}
               variant="contained"
-              sx={{
-                backgroundColor: "#e03636",
+              sx={(theme) => ({
+                backgroundColor: theme.palette.red.main,
                 "&:hover": {
-                  backgroundColor: "#b42d2d",
+                  backgroundColor: theme.palette.darkRed.main,
                 },
-              }}
+              })}
               onClick={() => onDelete(post.id)}
             >
               Видалити
@@ -50,14 +50,14 @@ const PostCard = ({ post, onDelete, onOpen, isLoading }) => {
               variant="outlined"
               size="small"
               startIcon={<KeyboardBackspaceIcon />}
-              sx={{
-                color: "#2196f3",
-                borderColor: "#2196f3",
+              sx={(theme) => ({
+                color: theme.palette.primary.main,
+                borderColor: theme.palette.primary.main,
                 "&:hover": {
                   backgroundColor: "#e3f2fd",
                   borderColor: "#1976d2",
                 },
-              }}
+              })}
               onClick={onOpen}
             >
               До списку
